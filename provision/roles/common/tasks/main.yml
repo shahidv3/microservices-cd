@@ -1,0 +1,42 @@
+---
+- name: dev locale
+  become: true
+  action: command update-locale LC_ALL=en_US.UTF-8
+
+- name: set default locale
+  become: true
+  lineinfile:
+    dest: /etc/default/locale
+    regexp: "LC_ALL"
+    line: "LC_ALL=\"en_US.UTF-8\""
+
+- name: install the basic common packages
+  become: yes
+  apt:
+    pkg: "{{ packages }}"
+    state: present
+    force: yes
+    cache_valid_time: 3600
+  vars:
+    packages:
+    - vim
+    - ufw
+    - redis-tools
+    - mongodb-clients
+    - curl
+    - gzip
+    - tree
+    - htop
+    - nagios-nrpe-server
+    - curl
+    - build-essential
+    - python-apt
+    - apt-transport-https
+    - g++
+    - dc
+    - zip
+    - unzip
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2

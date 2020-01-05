@@ -1,0 +1,30 @@
+{
+    "nodes" : [
+
+        {
+            "node": "qhandler-node",
+            "vm_size": "Standard_A1",
+            "memory": "512",
+            "cpus": "1",
+            "hostname": "qhandler-node",
+            "ip": "10.211.55.99",
+            "ports":[],
+            "playbook": "provision/qhandler-service.yml",
+            "apt_cache": true,
+            "aliases" : ["ibe.qhandler.service"]
+        },
+
+        {
+            "node": "ibeadmin-node",
+            "vm_size": "Standard_A1",
+            "memory": "512",
+	    "cpus": "1",
+            "hostname": "ibeadmin-node",
+            "ip": "10.211.55.100",
+            "ports":[],
+            "playbook": "provision/ibeadmin-service.yml",
+            "apt_cache": true,
+            "aliases" : ["ibe.admin.service"]
+        }
+]
+}

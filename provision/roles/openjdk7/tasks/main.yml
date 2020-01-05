@@ -1,0 +1,13 @@
+---
+- name: add java apt repository
+  apt_repository:
+    repo: 'ppa:openjdk-r/ppa'
+    state: present
+    filename: openjdk-7-jdk
+    update_cache: yes
+
+- name: install openjdk7
+  apt:
+    name: openjdk-7-jdk
+    state: present
+    update_cache: yes

@@ -1,0 +1,13 @@
+---
+- hosts: qhandler-node
+  user: vagrant
+  become: true
+
+  vars_files:
+     - vars/default.yml
+
+  roles:
+    - hosts
+    - common
+    - openjdk7
+    - jboss-standalone

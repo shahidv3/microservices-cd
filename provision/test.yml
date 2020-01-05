@@ -1,0 +1,12 @@
+---
+- hosts: default
+  vars:
+    - service_name: fat
+    - service_version: 0.1.0
+    - service_port: 8080
+    - service_dir: "/opt/services/{{ service_name }}"
+    - service_jar: "{{service_dir}}/{{ service_name }}-{{ service_version }}.jar"
+    - dist_dir: .
+    - source_jar: "{{ dist_dir }}/{{ service_name }}-{{ service_version }}.jar"
+  roles:
+    - role: roles/fatjar 

@@ -1,0 +1,62 @@
+---
+
+- name: Download JBoss from jboss.org
+  get_url:
+    url: http://download.jboss.org/jbossas/7.1/jboss-as-7.1.1.Final/jboss-as-7.1.1.Final.zip
+    dest: /opt/jboss-as-7.1.1.Final.zip
+
+
+- name: Extract archive
+  unarchive:
+    dest: /usr/share
+    src: /opt/jboss-as-7.1.1.Final.zip
+    creates: /usr/share/jboss-as
+    copy: no
+
+  # Rename the dir to avoid encoding the version in the init script
+- name: Rename install directory
+  command: /bin/mv jboss-as-7.1.1.Final jboss-as 
+  args:
+    chdir: /usr/share 
+    creates: /usr/share/jboss-as
+
+
+- name: download the jboss module
+  get_url:
+    url: http://repo1.maven.org/maven2/org/jboss/modules/jboss-modules/1.1.5.GA/jboss-modules-1.1.5.GA.jar
+    dest: /opt/jboss-modules-1.1.5.GA.jar
+
+- name: rename jboss module
+  command: /bin/mv jboss-modules-1.1.5.GA.jar jboss-modules.jar
+  args:
+    chdir: /opt
+    creates: /opt/jboss-modules.jar
+
+- name: copy jboss module
+  copy:
+      src: /opt/jboss-modules.jar
+      dest: /usr/share/jboss-as
+      remote_src: yes
+
+- name: Copying standalone.xml configuration file
+  template:
+    src: standalone.xml
+    dest: /usr/share/jboss-as/standalone/configuration/
+
+- name: Add group "jboss"
+  group:
+    name: vagrant
+
+
+- name: Change ownership of JBoss installation
+  file:
+    path: /usr/share/jboss-as/
+    owner: vagrant
+    group: vagrant
+    state: directory
+    recurse: yes
+
+- name: run jboss standalone
+  shell: cd /usr/share/jboss-as/bin/ ; nohup ./standalone.sh &
+  become: true
+  become_user: vagrant

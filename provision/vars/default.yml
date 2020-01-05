@@ -1,0 +1,9 @@
+---
+# Tool versions
+logstash_version : 1.4
+elasticsearch_version : 1.1
+kibana_version : 3.1.2
+
+# jboss app server
+http_port: 9080
+https_port: 9443
