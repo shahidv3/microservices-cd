@@ -1,6 +1,5 @@
 #!/bin/python
 
-
 import csv
 import json
 
