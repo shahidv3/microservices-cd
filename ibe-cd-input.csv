@@ -1,0 +1,3 @@
+node,vm_size,memory,cpus,hostname,ip,ports,playbook,apt_cache,aliases
+qhandler-node,"Standard_A1","512","1","qhandler-node","10.211.55.99",[],"provision/qhandler-service.yml","true","ibe.qhandler.service"
+ibeadmin-node,"Standard_A1","512","1","qhandler-node","10.211.55.100",[],"provision/ibeadmin-service.yml","true","ibeadmin.service"
